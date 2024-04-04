@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, View, Text, Pressable, useColorScheme } from "r
 import palette from "../Config/Colors";
 
 const CategoryButton = (props) => {
-  let colors = useColorScheme() === 'light' ? palette.light : palette.dark;
+  const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
     <>

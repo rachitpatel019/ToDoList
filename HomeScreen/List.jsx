@@ -11,7 +11,7 @@ import {
 import palette from "../Config/Colors";
 
 const Item = () => {
-  let colors = useColorScheme() === 'light' ? palette.light : palette.dark;
+  const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
     <>

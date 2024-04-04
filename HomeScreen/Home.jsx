@@ -7,7 +7,7 @@ import AddTask from "./AddTask";
 import palette from "../Config/Colors";
 
 function Home({ navigation }) {
-  let colors = useColorScheme() === "light" ? palette.light : palette.dark;
+  const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
     <View style={[styles.container, {backgroundColor: colors.Background}]}>

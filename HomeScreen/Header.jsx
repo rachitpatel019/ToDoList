@@ -39,7 +39,7 @@ let today =
   days[date.getDay()] + ", " + months[date.getMonth()] + " " + date.getDate();
 
 function Header(props) {
-  let colors = useColorScheme() === "light" ? palette.light : palette.dark;
+  const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
     <View style={styles.container}>

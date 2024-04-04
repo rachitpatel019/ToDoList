@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, useColorScheme } from "react-native";
 import palette from "../Config/Colors";
 
 function StatusBar() {
-  let colors = useColorScheme() === "light" ? palette.light : palette.dark;
+  const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
     <View style={styles.container}>

@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 // StatusBar.setHidden(true);
 
 export default function App() {
-  let colors = useColorScheme() === "light" ? palette.light : palette.dark;
+  const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
     <NavigationContainer>

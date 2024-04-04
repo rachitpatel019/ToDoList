@@ -4,12 +4,8 @@ import { View, Text, StyleSheet, Switch, Appearance, useColorScheme } from "reac
 import palette from "../Config/Colors";
 
 function Toggle(props) {
-  let colors = useColorScheme() === 'light' ? palette.light : palette.dark;
+  const colors = useColorScheme() === 'light' ? palette.light : palette.dark;
   const [isEnabled, setIsEnabled] = useState(Appearance.getColorScheme() === "light" ? false : true);
-  const toggleSwitch = () => {
-    setIsEnabled(!isEnabled);
-    Appearance.setColorScheme(Appearance.getColorScheme() === "dark" ? "light" : "dark");
-  };
 
   return (
     <View style={[styles.container, {backgroundColor: colors.ViewBackground}]}>
@@ -17,7 +13,10 @@ function Toggle(props) {
       <Switch
         trackColor={{ false: 'lightgray', true: 'blue' }}
         thumbColor="white"
-        onValueChange={toggleSwitch}
+        onValueChange={() => {
+          setIsEnabled(!isEnabled);
+          props.onPress();
+        }}
         value={isEnabled} />
     </View>
   );
