@@ -49,6 +49,11 @@ function Header(props) {
       </Text>
       <Text style={[styles.date, { color: colors.Text }]}>{today}</Text>
       <Pressable
+        style={{ position: "absolute", top: "16%", right: "29%" }}
+        onPress={props.onAddPress}>
+        <Image source={require("../assets/add.png")} />
+      </Pressable>
+      <Pressable
         style={{ position: "absolute", top: "16%", right: "17%" }}
         onPress={props.onCalendarPress}>
         <Image source={require("../assets/calendar.png")} />

@@ -1,8 +1,8 @@
 export default {
   light: {
     Background: "white",
-    ViewBackground: "lightgray", //#c9daf8
-    Text: "black", //#1c4587
+    ViewBackground: "darkgray",
+    Text: "black",
     Border: "black",
 
     statusBackgroundRed: "#f4cccc",

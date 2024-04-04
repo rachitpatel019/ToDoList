@@ -3,7 +3,7 @@ import Header from "./Header";
 import Categories from "./Categories";
 import StatusBar from "./StatusBar";
 import List from "./List";
-import AddTask from "./AddTask";
+
 import palette from "../Config/Colors";
 
 function Home({ navigation }) {
@@ -12,13 +12,13 @@ function Home({ navigation }) {
   return (
     <View style={[styles.container, {backgroundColor: colors.Background}]}>
       <Header
+        onAddPress={() => navigation.navigate("Add Task")}
         onCalendarPress={() => navigation.navigate("Calendar")}
         onSettingsPress={() => navigation.navigate("Settings")}
       />
       <Categories />
       <StatusBar />
       <List />
-      <AddTask onPress={() => navigation.navigate("Add Task")} />
     </View>
   );
 }
