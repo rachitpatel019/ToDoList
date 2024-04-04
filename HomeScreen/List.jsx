@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
 
   container: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     backgroundColor: 'white',
     marginTop: '3%',
     padding: 20,
@@ -72,8 +74,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   buttonView: {
-    position: "absolute",
-    right: "2%",
-    top: "40%",
+    // position: "absolute",
+    // right: "2%",
+    // top: "40%",
   },
 });
