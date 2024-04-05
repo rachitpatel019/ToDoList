@@ -11,6 +11,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import Home from "./HomeScreen/Home";
 import Create from "./CreateScreen/Create";
+import Category from "./AddCategoryScreen/Category";
 import Calendar from "./CalendarScreen/Calendar";
 import Settings from "./SettingsScreen/Settings";
 import palette from "./Config/Colors";
@@ -26,13 +27,22 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="HomeScreen"
+          name="Home Screen"
           component={Home}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Add Task"
           component={Create}
+          options={{
+            headerStyle: { backgroundColor: colors.Background },
+            headerTitleStyle: { color: colors.Text },
+            headerTintColor: colors.Text,
+          }}
+        />
+        <Stack.Screen
+          name="Add Category"
+          component={Category}
           options={{
             headerStyle: { backgroundColor: colors.Background },
             headerTitleStyle: { color: colors.Text },

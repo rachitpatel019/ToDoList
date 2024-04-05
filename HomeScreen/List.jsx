@@ -66,16 +66,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: 'white',
     marginTop: '3%',
-    padding: 20,
+    padding: 15,
     borderRadius: 20,
   },
   text: {
     fontSize: 20,
     padding: 5,
   },
-  buttonView: {
-    // position: "absolute",
-    // right: "2%",
-    // top: "40%",
-  },
+  buttonView: {},
 });

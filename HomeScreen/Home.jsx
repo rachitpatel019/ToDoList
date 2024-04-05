@@ -16,7 +16,7 @@ function Home({ navigation }) {
         onCalendarPress={() => navigation.navigate("Calendar")}
         onSettingsPress={() => navigation.navigate("Settings")}
       />
-      <Categories />
+      <Categories onAddPress={() => {navigation.navigate("Add Category")}} />
       <StatusBar />
       <List />
     </View>

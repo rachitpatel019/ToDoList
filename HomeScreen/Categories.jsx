@@ -14,17 +14,19 @@ const CategoryButton = (props) => {
   );
 };
 
-const AddButton = () => {
+const AddButton = (props) => {
+  const colors = useColorScheme() === "light" ? palette.light : palette.dark;
+
   return (
     <>
-      <Pressable>
-        <Text style={styles.addText}>+</Text>
+      <Pressable onPress={props.onAddPress}>
+        <Text style={[styles.addText, {color: colors.Text}]}>+</Text>
       </Pressable>
     </>
   );
 };
 
-function Categories() {
+function Categories(props) {
   return (
     <View style={styles.container}>
       <ScrollView
@@ -37,7 +39,7 @@ function Categories() {
         <CategoryButton title="Work" />
         <CategoryButton title="Home" />
         <CategoryButton title="Other" />
-        <AddButton />
+        <AddButton onAddPress={props.onAddPress} />
       </ScrollView>
     </View>
   );
