@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, View, Text, Pressable, useColorScheme } from "react-native";
+import { StyleSheet, ScrollView, View, Text, Pressable, Image, useColorScheme } from "react-native";
 
 import palette from "../Config/Colors";
 
@@ -19,8 +19,8 @@ const AddButton = (props) => {
 
   return (
     <>
-      <Pressable onPress={props.onAddPress}>
-        <Text style={[styles.addText, {color: colors.Text}]}>+</Text>
+      <Pressable style={styles.addButton} onPress={props.onAddPress}>
+        <Image source={useColorScheme() === "light" ? require("../assets/plus_black.png") : require("../assets/plus_white.png")} />
       </Pressable>
     </>
   );
@@ -70,9 +70,11 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
 
-  addText: {
-    fontSize: 48,
-    paddingLeft: 10,
-    paddingRight: 10,
+  addButton: {
+    padding: 5,
+    margin: 5,
+    height: 50,
+    borderRadius: 50,
+    justifyContent: "center",
   },
 });

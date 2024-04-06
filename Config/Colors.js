@@ -3,6 +3,7 @@ export default {
     Background: "white",
     ViewBackground: "darkgray",
     Text: "black",
+    SecondaryText: "lightgray",
     Border: "black",
 
     statusBackgroundRed: "#f4cccc",
@@ -16,6 +17,7 @@ export default {
     Background: "black",
     ViewBackground: "#171719",
     Text: "white",
+    SecondaryText: "darkgray",
     Border: "gray",
 
     statusBackgroundRed: "#990000",
