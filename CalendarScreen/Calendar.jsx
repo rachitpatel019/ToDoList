@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import colors from "../Config/Colors";
+import palette from "../Config/Colors";
 
 function Calendar() {
   return <View style={styles.container}></View>;
