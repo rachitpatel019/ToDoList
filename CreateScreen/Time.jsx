@@ -1,49 +1,30 @@
-import { useState } from "react";
-import { View, StyleSheet, Text, Pressable, useColorScheme } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Pressable,
+  useColorScheme,
+} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
 import palette from "../Config/Colors";
 
-function Calendar() {
+function Time(props) {
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
-
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setShow(false);
-    setDate(currentDate);
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode("date");
-  };
-
-  const showTimepicker = () => {
-    showMode("time");
-  };
 
   return (
     <View style={styles.container}>
       <View>
         <Text
           style={[styles.text, { color: colors.Text, textAlign: "center" }]}>
-          {date.getMonth() +
+          {props.date.getMonth() +
             1 +
             "/" +
-            date.getDate() +
+            props.date.getDate() +
             "/" +
-            date.getFullYear()}
+            props.date.getFullYear()}
         </Text>
         <Pressable
-          onPress={showDatepicker}
+          onPress={props.showDatepicker}
           style={[styles.button, { backgroundColor: "blue" }]}>
           <Text style={[styles.text, { color: colors.Text }]}>Date</Text>
         </Pressable>
@@ -51,22 +32,26 @@ function Calendar() {
       <View>
         <Text
           style={[styles.text, { color: colors.Text, textAlign: "center" }]}>
-          {date.getHours() <= 12
-            ? date.getHours() + ":" + date.getMinutes()
-            : date.getHours() - 12 + ":" + date.getMinutes()}
+          {props.date.getHours() <= 12
+            ? props.date.getHours() + ":" + props.date.getMinutes()
+            : props.date.getHours() - 12 + ":" + props.date.getMinutes()}
         </Text>
         <Pressable
-          onPress={showTimepicker}
+          onPress={props.showTimepicker}
           style={[styles.button, { backgroundColor: "blue" }]}>
           <Text style={[styles.text, { color: colors.Text }]}>Time</Text>
         </Pressable>
       </View>
-      {show && <DateTimePicker value={date} mode={mode} onChange={onChange} />}
+      {props.show && <DateTimePicker
+        value={props.date}
+        mode={props.mode}
+        onChange={(event, selectedDate) => props.onDateChange(selectedDate)}
+      />}
     </View>
   );
 }
 
-export default Calendar;
+export default Time;
 
 const styles = StyleSheet.create({
   container: {

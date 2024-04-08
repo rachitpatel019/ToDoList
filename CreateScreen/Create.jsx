@@ -16,6 +16,41 @@ import palette from "../Config/Colors";
 function Create() {
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
+  const [category, setCategory] = useState("");
+  const [days, setDays] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+
+  const onCategoryChange = (value) => {
+    setCategory(value);
+  };
+
+  const onDaysChange = (day) => {
+    const updatedDays = days.includes(day)
+      ? days.filter((value) => value !== day)
+      : [...days, day];
+    setDays(updatedDays);
+  };
+
+  const onDateChange = (selectedDate) => {
+    setShow(false);
+    setDate(selectedDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
+  const showTimepicker = () => {
+    showMode("time");
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.Background }]}>
       <TextInput
@@ -23,10 +58,17 @@ function Create() {
         placeholder="name"
         placeholderTextColor={colors.SecondaryText}
       />
-      
-      <CategoryPicker />
-      <Time />
-      <Repeat />
+
+      <CategoryPicker category={category} onChange={onCategoryChange} />
+      <Time
+        date={date}
+        mode={mode}
+        show={show}
+        onDateChange={onDateChange}
+        showDatepicker={showDatepicker}
+        showTimepicker={showTimepicker}
+      />
+      <Repeat days={days} onChange={onDaysChange} />
 
       <Pressable style={[styles.button, { backgroundColor: "blue" }]}>
         <Text style={[styles.text, { color: colors.Text }]}>Add</Text>

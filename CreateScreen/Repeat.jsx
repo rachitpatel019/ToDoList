@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,7 +5,6 @@ import {
   Pressable,
   useColorScheme,
 } from "react-native";
-
 import palette from "../Config/Colors";
 
 const week = [
@@ -19,27 +17,24 @@ const week = [
   { short: "sun", initial: "S" },
 ];
 
-function Calendar() {
+function Repeat(props) {
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
-
-  const [days, setDays] = useState([]);
 
   return (
     <View>
       <Text style={[styles.text, { color: colors.Text }]}>Repeat:</Text>
-      
+
       <View style={styles.container}>
         {week.map((day) => (
           <Pressable
+            key={day.short}
             style={
-              days.includes(day.short)
+              props.days.includes(day.short)
                 ? styles.selectedDays
                 : styles.unselectedDays
             }
             onPress={() => {
-              days.includes(day.short)
-                ? setDays(days.filter((value) => value != day.short))
-                : setDays(days.concat(days, [day.short]));
+              props.onChange(day.short);
             }}>
             <Text style={[styles.text, { color: colors.Text }]}>
               {day.initial}
@@ -51,7 +46,7 @@ function Calendar() {
   );
 }
 
-export default Calendar;
+export default Repeat;
 
 const styles = StyleSheet.create({
   container: {
