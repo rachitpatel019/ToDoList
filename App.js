@@ -1,14 +1,11 @@
-// import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
-  Text,
-  View,
-  StatusBar,
   useColorScheme,
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 
+import { TasksProvider } from "./Config/Tasks";
 import Home from "./HomeScreen/Home";
 import Create from "./CreateScreen/Create";
 import Category from "./AddCategoryScreen/Category";
@@ -24,51 +21,53 @@ export default function App() {
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home Screen"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Add Task"
-          component={Create}
-          options={{
-            headerStyle: { backgroundColor: colors.Background },
-            headerTitleStyle: { color: colors.Text },
-            headerTintColor: colors.Text,
-          }}
-        />
-        <Stack.Screen
-          name="Add Category"
-          component={Category}
-          options={{
-            headerStyle: { backgroundColor: colors.Background },
-            headerTitleStyle: { color: colors.Text },
-            headerTintColor: colors.Text,
-          }}
-        />
-        <Stack.Screen
-          name="Calendar"
-          component={Calendar}
-          options={{
-            headerStyle: { backgroundColor: colors.Background },
-            headerTitleStyle: { color: colors.Text },
-            headerTintColor: colors.Text,
-          }}
-        />
-        <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={{
-            headerStyle: { backgroundColor: colors.Background },
-            headerTitleStyle: { color: colors.Text },
-            headerTintColor: colors.Text,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <TasksProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home Screen"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Add Task"
+            component={Create}
+            options={{
+              headerStyle: { backgroundColor: colors.Background },
+              headerTitleStyle: { color: colors.Text },
+              headerTintColor: colors.Text,
+            }}
+          />
+          <Stack.Screen
+            name="Add Category"
+            component={Category}
+            options={{
+              headerStyle: { backgroundColor: colors.Background },
+              headerTitleStyle: { color: colors.Text },
+              headerTintColor: colors.Text,
+            }}
+          />
+          <Stack.Screen
+            name="Calendar"
+            component={Calendar}
+            options={{
+              headerStyle: { backgroundColor: colors.Background },
+              headerTitleStyle: { color: colors.Text },
+              headerTintColor: colors.Text,
+            }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={{
+              headerStyle: { backgroundColor: colors.Background },
+              headerTitleStyle: { color: colors.Text },
+              headerTintColor: colors.Text,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </TasksProvider>
   );
 }
 

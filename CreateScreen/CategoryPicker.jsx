@@ -16,10 +16,12 @@ function Calendar(props) {
       <Picker.Item
         style={{ color: colors.Text, backgroundColor: colors.ViewBackground }}
         label="School"
+        value="School"
       />
       <Picker.Item
         style={{ color: colors.Text, backgroundColor: colors.ViewBackground }}
         label="College"
+        value="College"
       />
     </Picker>
   );

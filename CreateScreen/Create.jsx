@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -8,22 +8,25 @@ import {
   useColorScheme,
 } from "react-native";
 
+import Tasks from "../Config/Tasks";
 import CategoryPicker from "./CategoryPicker";
 import Time from "./Time";
 import Repeat from "./Repeat";
 import palette from "../Config/Colors";
 
 function Create() {
+  const { tasks, setTasks, saveData } = useContext(Tasks);
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
-  const [category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("School");
   const [days, setDays] = useState([]);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
-  const onCategoryChange = (value) => {
-    setCategory(value);
+  const onCategoryChange = (itemValue, itemIndex) => {
+    setCategory(itemValue);
   };
 
   const onDaysChange = (day) => {
@@ -51,12 +54,39 @@ function Create() {
     showMode("time");
   };
 
+  const handleAdd = () => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const time =
+      hours <= 12
+        ? hours +
+          ":" +
+          (minutes.toString().length == 2 ? minutes : "0" + minutes)
+        : hours -
+          12 +
+          ":" +
+          (minutes.toString().length == 2 ? minutes : "0" + minutes);
+    const newTask = {
+      name: title,
+      category: category,
+      date: date,
+      time: time,
+      repeat: days,
+    };
+    setTasks([...tasks, newTask]);
+    saveData();
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.Background }]}>
       <TextInput
-        style={[styles.input, { backgroundColor: colors.ViewBackground }]}
+        style={[
+          styles.input,
+          { backgroundColor: colors.ViewBackground, color: colors.Text },
+        ]}
         placeholder="name"
         placeholderTextColor={colors.SecondaryText}
+        onChangeText={setTitle}
       />
 
       <CategoryPicker category={category} onChange={onCategoryChange} />
@@ -70,7 +100,9 @@ function Create() {
       />
       <Repeat days={days} onChange={onDaysChange} />
 
-      <Pressable style={[styles.button, { backgroundColor: "blue" }]}>
+      <Pressable
+        style={[styles.button, { backgroundColor: "blue" }]}
+        onPress={handleAdd}>
         <Text style={[styles.text, { color: colors.Text }]}>Add</Text>
       </Pressable>
     </View>

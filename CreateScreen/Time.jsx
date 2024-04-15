@@ -9,6 +9,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import palette from "../Config/Colors";
 
 function Time(props) {
+  const { date, mode, show, onDateChange, showDatepicker, showTimepicker } = props;
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
@@ -16,15 +17,15 @@ function Time(props) {
       <View>
         <Text
           style={[styles.text, { color: colors.Text, textAlign: "center" }]}>
-          {props.date.getMonth() +
+          {date.getMonth() +
             1 +
             "/" +
-            props.date.getDate() +
+            date.getDate() +
             "/" +
-            props.date.getFullYear()}
+            date.getFullYear()}
         </Text>
         <Pressable
-          onPress={props.showDatepicker}
+          onPress={showDatepicker}
           style={[styles.button, { backgroundColor: "blue" }]}>
           <Text style={[styles.text, { color: colors.Text }]}>Date</Text>
         </Pressable>
@@ -32,21 +33,32 @@ function Time(props) {
       <View>
         <Text
           style={[styles.text, { color: colors.Text, textAlign: "center" }]}>
-          {props.date.getHours() <= 12
-            ? props.date.getHours() + ":" + props.date.getMinutes()
-            : props.date.getHours() - 12 + ":" + props.date.getMinutes()}
+          {date.getHours() <= 12
+            ? date.getHours() +
+              ":" +
+              (date.getMinutes().toString().length == 2
+                ? date.getMinutes()
+                : "0" + date.getMinutes())
+            : date.getHours() -
+              12 +
+              ":" +
+              (date.getMinutes().toString().length == 2
+                ? date.getMinutes()
+                : "0" + date.getMinutes())}
         </Text>
         <Pressable
-          onPress={props.showTimepicker}
+          onPress={showTimepicker}
           style={[styles.button, { backgroundColor: "blue" }]}>
           <Text style={[styles.text, { color: colors.Text }]}>Time</Text>
         </Pressable>
       </View>
-      {props.show && <DateTimePicker
-        value={props.date}
-        mode={props.mode}
-        onChange={(event, selectedDate) => props.onDateChange(selectedDate)}
-      />}
+      {show && (
+        <DateTimePicker
+          value={date}
+          mode={mode}
+          onChange={(event, selectedDate) => onDateChange(selectedDate)}
+        />
+      )}
     </View>
   );
 }

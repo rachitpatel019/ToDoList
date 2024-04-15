@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,25 +9,29 @@ import {
   useColorScheme,
 } from "react-native";
 
+import Tasks from "../Config/Tasks";
 import palette from "../Config/Colors";
 
-const Item = () => {
+const Item = (props) => {
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
     <>
-      <Pressable style={[styles.container, {backgroundColor: colors.ViewBackground}]}>
-        <Text numberOfLines={1} style={[styles.text, { color: colors.Text, width: '26%' }]}>
-          12:00 AM
+      <Pressable
+        style={[styles.container, { backgroundColor: colors.ViewBackground }]}>
+        <Text
+          numberOfLines={1}
+          style={[styles.text, { color: colors.Text, width: "26%" }]}>
+          {props.time}
         </Text>
-        <Text numberOfLines={1} style={[styles.text, { color: colors.Text, width: '60%' }]}>
-          Make Breakfast in the Morning
+        <Text
+          numberOfLines={1}
+          style={[styles.text, { color: colors.Text, width: "60%" }]}>
+          {props.name}
         </Text>
         <View style={styles.buttonView}>
-          <Pressable>
-            <Image
-              source={require("../assets/done.png")}
-            />
+          <Pressable onPress={() => {props.onDone(props.index)}}>
+            <Image source={require("../assets/done.png")} />
           </Pressable>
         </View>
       </Pressable>
@@ -35,17 +40,23 @@ const Item = () => {
 };
 
 function List() {
+  const { tasks, setTasks, saveData } = useContext(Tasks);
+
+  const handleDone = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(index, 1);
+    setTasks(updatedTasks);
+    saveData();
+  };
+
   return (
     <>
       <ScrollView style={styles.list} showsVerticalScrollIndicator={false}>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
+        {
+          tasks.map((task, index) => (
+          <Item key={index} index={index} onDone={handleDone} time={task.time} name={task.name} />
+          ))
+        }
       </ScrollView>
     </>
   );
@@ -64,8 +75,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: 'white',
-    marginTop: '3%',
+    backgroundColor: "white",
+    marginTop: "3%",
     padding: 15,
     borderRadius: 20,
   },
