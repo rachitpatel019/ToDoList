@@ -16,10 +16,10 @@ const Item = () => {
   return (
     <>
       <Pressable style={[styles.container, {backgroundColor: colors.ViewBackground}]}>
-        <Text numberOfLines={1} style={[styles.text, { color: colors.Text, width: '30%' }]}>
+        <Text numberOfLines={1} style={[styles.text, { color: colors.Text, width: '26%' }]}>
           12:00 AM
         </Text>
-        <Text numberOfLines={1} style={[styles.text, { color: colors.Text, width: '50%' }]}>
+        <Text numberOfLines={1} style={[styles.text, { color: colors.Text, width: '60%' }]}>
           Make Breakfast in the Morning
         </Text>
         <View style={styles.buttonView}>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     padding: 5,
   },
   buttonView: {},
