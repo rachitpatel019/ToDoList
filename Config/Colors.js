@@ -6,12 +6,8 @@ export default {
     SecondaryText: "lightgray",
     Border: "black",
 
-    statusBackgroundRed: "#f4cccc",
-    statusBackgroundYellow: "#fff2cc",
-    statusBackgroundGreen: "#d9ead3",
-    statusTextRed: "#990000",
-    statusTextYellow: "#bf9000",
-    statusTextGreen: "#38761d",
+    statusBackground: "#d9d2e9",
+    statusText: "black",
   },
   dark: {
     Background: "black",
@@ -20,11 +16,7 @@ export default {
     SecondaryText: "darkgray",
     Border: "gray",
 
-    statusBackgroundRed: "#990000",
-    statusBackgroundYellow: "#bf9000",
-    statusBackgroundGreen: "#38761d",
-    statusTextRed: "#f4cccc",
-    statusTextYellow: "#fff2cc",
-    statusTextGreen: "#d9ead3",
+    statusBackground: "blue", // 9900ff
+    statusText: "white",
   },
 };

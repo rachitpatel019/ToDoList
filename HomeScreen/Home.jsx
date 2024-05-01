@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View, StyleSheet, useColorScheme } from "react-native";
 import Header from "./Header";
 import Categories from "./Categories";
@@ -8,6 +9,7 @@ import palette from "../Config/Colors";
 
 function Home({ navigation }) {
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
+  const [category, setCategory] = useState("");
 
   return (
     <View style={[styles.container, {backgroundColor: colors.Background}]}>
@@ -16,9 +18,9 @@ function Home({ navigation }) {
         onCalendarPress={() => navigation.navigate("Calendar")}
         onSettingsPress={() => navigation.navigate("Settings")}
       />
-      <Categories onAddPress={() => {navigation.navigate("Add Category")}} />
+      <Categories selected={category} setSelected={setCategory} onAddPress={() => {navigation.navigate("Add Category")}} />
       <StatusBar />
-      <List />
+      <List category={category} setCategory={setCategory} />
     </View>
   );
 }

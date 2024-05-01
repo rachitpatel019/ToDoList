@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { View, StyleSheet, useColorScheme } from "react-native";
+import { useContext } from "react";
+import { StyleSheet, useColorScheme } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
+import Categories from "../Config/Categories";
 import palette from "../Config/Colors";
 
 function Calendar(props) {
+  const { categories } = useContext(Categories);
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   return (
@@ -15,14 +17,16 @@ function Calendar(props) {
       mode="dropdown">
       <Picker.Item
         style={{ color: colors.Text, backgroundColor: colors.ViewBackground }}
-        label="School"
-        value="School"
+        label="None"
+        value="None"
       />
-      <Picker.Item
-        style={{ color: colors.Text, backgroundColor: colors.ViewBackground }}
-        label="College"
-        value="College"
-      />
+      {categories.map((category) => (
+        <Picker.Item
+          style={{ color: colors.Text, backgroundColor: colors.ViewBackground }}
+          label={category}
+          value={category}
+        />
+      ))}
     </Picker>
   );
 }

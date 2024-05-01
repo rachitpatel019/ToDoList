@@ -15,11 +15,11 @@ import Repeat from "./Repeat";
 import palette from "../Config/Colors";
 
 function Create() {
-  const { tasks, setTasks, saveData } = useContext(Tasks);
+  const { tasks, setTasks } = useContext(Tasks);
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("School");
+  const [category, setCategory] = useState("");
   const [days, setDays] = useState([]);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
@@ -57,7 +57,7 @@ function Create() {
   const handleAdd = () => {
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const time =
+    const taskTime =
       hours <= 12
         ? hours +
           ":" +
@@ -66,15 +66,18 @@ function Create() {
           12 +
           ":" +
           (minutes.toString().length == 2 ? minutes : "0" + minutes);
+
+    const taskDate =
+      date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+
     const newTask = {
       name: title,
       category: category,
-      date: date,
-      time: time,
+      date: taskDate,
+      time: taskTime,
       repeat: days,
     };
     setTasks([...tasks, newTask]);
-    saveData();
   };
 
   return (

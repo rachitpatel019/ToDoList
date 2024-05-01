@@ -10,6 +10,10 @@ export const TasksProvider = ({ children }) => {
     loadData();
   }, []);
 
+  useEffect(() => {
+    saveTasks();
+  }, [tasks]);
+
   const loadData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("tasks");
@@ -21,7 +25,7 @@ export const TasksProvider = ({ children }) => {
     }
   };
 
-  const saveData = async () => {
+  const saveTasks = async () => {
     try {
       await AsyncStorage.setItem("tasks", JSON.stringify(tasks));
     } catch (error) {
@@ -32,7 +36,6 @@ export const TasksProvider = ({ children }) => {
   const contextValue = {
     tasks,
     setTasks,
-    saveData,
   };
 
   return <Tasks.Provider value={contextValue}>{children}</Tasks.Provider>;
