@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const Categories = createContext();
 
 export const CategoryProvider = ({ children }) => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(["Today"]);
 
   useEffect(() => {
     loadData();

@@ -38,7 +38,7 @@ export default function App() {
               }}
             />
             <Stack.Screen
-              name="Add Category"
+              name="Edit Category"
               component={Category}
               options={{
                 headerStyle: { backgroundColor: colors.Background },

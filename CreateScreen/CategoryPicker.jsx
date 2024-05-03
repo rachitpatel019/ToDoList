@@ -20,11 +20,12 @@ function Calendar(props) {
         label="None"
         value="None"
       />
-      {categories.map((category) => (
+      {categories.slice(1).map((category, index) => (
         <Picker.Item
           style={{ color: colors.Text, backgroundColor: colors.ViewBackground }}
           label={category}
           value={category}
+          key={index}
         />
       ))}
     </Picker>

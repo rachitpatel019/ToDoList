@@ -32,7 +32,7 @@ const Item = (props) => {
         <View style={styles.buttonView}>
           <Pressable
             onPress={() => {
-              props.onDone(props.index);
+              props.onDone(props.name);
             }}>
             <Image source={require("../assets/done.png")} />
           </Pressable>
@@ -45,15 +45,16 @@ const Item = (props) => {
 function List(props) {
   const { tasks, setTasks } = useContext(Tasks);
 
-  const handleDone = (index) => {
+  const handleDone = (name) => {
     const updatedTasks = [...tasks];
+    const index = updatedTasks.indexOf(name);
     updatedTasks.splice(index, 1);
     setTasks(updatedTasks);
   };
 
   const getTodaysTasks = () => {
     const currentDate = new Date();
-    const allTasks = tasks;
+    const allTasks = [...tasks];
 
     const newList = allTasks.filter(
       (task) =>
@@ -66,8 +67,19 @@ function List(props) {
   };
 
   const getTasks = () => {
-    const taskList = getTodaysTasks();
-    return taskList;
+    if (props.selectedCategory == "Today") {
+      const taskList = getTodaysTasks();
+      return taskList;
+    }
+    else {
+      const allTasks = [...tasks];
+
+      const newList = allTasks.filter(
+        (task) => task.category == props.selectedCategory
+      );
+
+      return newList;
+    }
   };
 
   return (
@@ -76,7 +88,6 @@ function List(props) {
         {getTasks().map((task, index) => (
           <Item
             key={index}
-            index={index}
             onDone={handleDone}
             time={task.time}
             name={task.name}

@@ -1,5 +1,7 @@
+import { useState, useContext } from "react";
 import { StyleSheet, ScrollView, View, Text, Pressable, Image, useColorScheme } from "react-native";
 
+import Categories from "../Config/Categories";
 import palette from "../Config/Colors";
 
 const CategoryButton = (props) => {
@@ -7,16 +9,21 @@ const CategoryButton = (props) => {
 
   return (
     <>
-      <Pressable style={[styles.button, {borderColor: colors.Border}]}>
-        <Text style={[styles.text, {color: colors.Text}]}>{props.title}</Text>
+      <Pressable
+        style={[
+          styles.button,
+          props.selected
+            ? { borderColor: "blue" }
+            : { borderColor: colors.Border },
+        ]}
+        onPress={props.onPress}>
+        <Text style={[styles.text, { color: colors.Text }]}>{props.title}</Text>
       </Pressable>
     </>
   );
 };
 
 const AddButton = (props) => {
-  const colors = useColorScheme() === "light" ? palette.light : palette.dark;
-
   return (
     <>
       <Pressable style={styles.addButton} onPress={props.onAddPress}>
@@ -26,26 +33,30 @@ const AddButton = (props) => {
   );
 };
 
-function Categories(props) {
+function CategoryList(props) {
+  const { categories } = useContext(Categories);
+
   return (
     <View style={styles.container}>
       <ScrollView
         style={styles.list}
         showsHorizontalScrollIndicator={false}
         horizontal={true}>
-        <CategoryButton title="Today" />
-        <CategoryButton title="Important" />
-        <CategoryButton title="College" />
-        <CategoryButton title="Work" />
-        <CategoryButton title="Home" />
-        <CategoryButton title="Other" />
+        {categories.map((category, index) => (
+          <CategoryButton
+            title={category}
+            key={index}
+            selected={category == props.selectedCategory}
+            onPress={() => props.setSelectedCategory(category)}
+          />
+        ))}
         <AddButton onAddPress={props.onAddPress} />
       </ScrollView>
     </View>
   );
 }
 
-export default Categories;
+export default CategoryList;
 
 const styles = StyleSheet.create({
   container: {

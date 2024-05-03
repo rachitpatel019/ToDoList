@@ -1,26 +1,34 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { View, StyleSheet, useColorScheme } from "react-native";
+
+import Categories from "../Config/Categories";
 import Header from "./Header";
-import Categories from "./Categories";
+import CategoryList from "./CategoryList";
 import StatusBar from "./StatusBar";
 import List from "./List";
-
 import palette from "../Config/Colors";
 
 function Home({ navigation }) {
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
-  const [category, setCategory] = useState("");
+  const { categories } = useContext(Categories);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   return (
-    <View style={[styles.container, {backgroundColor: colors.Background}]}>
+    <View style={[styles.container, { backgroundColor: colors.Background }]}>
       <Header
         onAddPress={() => navigation.navigate("Add Task")}
         onCalendarPress={() => navigation.navigate("Calendar")}
         onSettingsPress={() => navigation.navigate("Settings")}
       />
-      <Categories selected={category} setSelected={setCategory} onAddPress={() => {navigation.navigate("Add Category")}} />
+      <CategoryList
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        onAddPress={() => {
+          navigation.navigate("Edit Category");
+        }}
+      />
       <StatusBar />
-      <List category={category} setCategory={setCategory} />
+      <List selectedCategory={selectedCategory} />
     </View>
   );
 }
