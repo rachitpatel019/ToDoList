@@ -45,7 +45,9 @@ function CategoryScreen() {
   const [newCategory, setNewCategory] = useState("");
 
   const handleAdd = () => {
-    setCategories([...categories, newCategory]);
+    if (!(categories.includes(newCategory))) {
+      setCategories([...categories, newCategory]);
+    }
   };
 
   const handleDelete = (index) => {

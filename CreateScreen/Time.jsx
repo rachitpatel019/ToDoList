@@ -56,6 +56,7 @@ function Time(props) {
         <DateTimePicker
           value={date}
           mode={mode}
+          minimumDate={new Date()}
           onChange={(event, selectedDate) => onDateChange(selectedDate)}
         />
       )}

@@ -8,15 +8,13 @@ function StatusBar() {
   const { tasks } = useContext(Tasks);
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
-  const now = new Date();
-
   const getTodaysTasks = () => {
     const allTasks = [...tasks];
     const todaysTasks = allTasks.filter(
       (task) =>
-        task.date.split("/")[2] == now.getFullYear() &&
-        task.date.split("/")[1] == now.getDate() &&
-        task.date.split("/")[0] == now.getMonth() + 1
+        task.date.split("/")[2] == new Date().getFullYear() &&
+        task.date.split("/")[1] == new Date().getDate() &&
+        task.date.split("/")[0] == new Date().getMonth() + 1
     );
     return todaysTasks.length;
   };
@@ -25,9 +23,8 @@ function StatusBar() {
     const [month, day, year] = task.date.split("/").map(Number);
     const [hours, minutes] = task.time.split(":").map(Number);
     const taskDate = new Date(year, month - 1, day, hours, minutes);
-    return taskDate <= now;
+    return taskDate <= new Date();
   }).length;
-
 
   return (
     <View style={styles.container}>

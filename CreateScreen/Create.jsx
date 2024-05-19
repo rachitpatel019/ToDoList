@@ -11,7 +11,6 @@ import {
 import Tasks from "../Config/Tasks";
 import CategoryPicker from "./CategoryPicker";
 import Time from "./Time";
-import Repeat from "./Repeat";
 import palette from "../Config/Colors";
 
 function Create() {
@@ -60,7 +59,9 @@ function Create() {
       date: taskDate,
       time: taskTime,
     };
-    setTasks([...tasks, newTask]);
+    if (!(tasks.some(task => task.name === title && task.category === category && task.date === taskDate && task.time === taskTime))) {
+      setTasks([...tasks, newTask]);
+    }
   };
 
   return (

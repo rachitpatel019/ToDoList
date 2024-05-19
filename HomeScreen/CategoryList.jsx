@@ -27,7 +27,7 @@ const AddButton = (props) => {
   return (
     <>
       <Pressable style={styles.addButton} onPress={props.onAddPress}>
-        <Image source={useColorScheme() === "light" ? require("../assets/plus_black.png") : require("../assets/plus_white.png")} />
+        <Image source={useColorScheme() === "light" ? require("../assets/pencil_black.png") : require("../assets/pencil_white.png")} />
       </Pressable>
     </>
   );
