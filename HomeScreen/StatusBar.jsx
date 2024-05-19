@@ -5,27 +5,46 @@ import Tasks from "../Config/Tasks";
 import palette from "../Config/Colors";
 
 function StatusBar() {
-  const { tasks, setTasks, saveTasks } = useContext(Tasks);
+  const { tasks } = useContext(Tasks);
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
+
+  const now = new Date();
+
+  const getTodaysTasks = () => {
+    const allTasks = [...tasks];
+    const todaysTasks = allTasks.filter(
+      (task) =>
+        task.date.split("/")[2] == now.getFullYear() &&
+        task.date.split("/")[1] == now.getDate() &&
+        task.date.split("/")[0] == now.getMonth() + 1
+    );
+    return todaysTasks.length;
+  };
+
+  const overdueTasks = tasks.filter((task) => {
+    const [month, day, year] = task.date.split("/").map(Number);
+    const [hours, minutes] = task.time.split(":").map(Number);
+    const taskDate = new Date(year, month - 1, day, hours, minutes);
+    return taskDate <= now;
+  }).length;
+
 
   return (
     <View style={styles.container}>
       <View style={[styles.box, { backgroundColor: colors.statusBackground }]}>
         <Text style={[styles.data, { color: colors.statusText }]}>
-          {tasks.length}
+          {getTodaysTasks()}
         </Text>
         <Text style={[styles.title, { color: colors.statusText }]}>To do</Text>
       </View>
       <View style={[styles.box, { backgroundColor: colors.statusBackground }]}>
-        <Text style={[styles.data, { color: colors.statusText }]}>0</Text>
+        <Text style={[styles.data, { color: colors.statusText }]}>
+          {overdueTasks}
+        </Text>
         <Text style={[styles.title, { color: colors.statusText }]}>
           Overdue
         </Text>
       </View>
-      {/* <View style={[styles.box, {backgroundColor: colors.statusBackgroundGreen}]}>
-        <Text style={[styles.data, {color: colors.statusTextGreen}]}>1</Text>
-        <Text style={[styles.title, {color: colors.statusTextGreen}]}>Finished</Text>
-      </View> */}
     </View>
   );
 }

@@ -22,7 +22,9 @@ const Item = (props) => {
         <Text
           numberOfLines={1}
           style={[styles.text, { color: colors.Text, width: "26%" }]}>
-          {props.time}
+          {parseInt(props.time.split(":")[0]) <= 12
+            ? props.time
+            : parseInt((props.time.split(":")[0]) - 12) + ":" + (props.time.split(":")[1])}
         </Text>
         <Text
           numberOfLines={1}
@@ -32,7 +34,7 @@ const Item = (props) => {
         <View style={styles.buttonView}>
           <Pressable
             onPress={() => {
-              props.onDone(props.name);
+              props.onDone(props.task);
             }}>
             <Image source={require("../assets/done.png")} />
           </Pressable>
@@ -45,26 +47,48 @@ const Item = (props) => {
 function List(props) {
   const { tasks, setTasks } = useContext(Tasks);
 
-  const handleDone = (name) => {
-    const updatedTasks = [...tasks];
-    const index = updatedTasks.indexOf(name);
+  const handleDone = (task) => {
+    let updatedTasks = [...tasks];
+    const index = updatedTasks.indexOf(task);
     updatedTasks.splice(index, 1);
     setTasks(updatedTasks);
   };
+
+  const compareTime = (a, b) => {
+    const time1 = a.time.split(":");
+    const time2 = b.time.split(":");
+
+    const hour1 = parseInt(time1[0], 10);
+    const minute1 = parseInt(time1[1], 10);
+
+    const hour2 = parseInt(time2[0], 10);
+    const minute2 = parseInt(time2[1], 10);
+
+    if (hour1 !== hour2)
+    {
+      return hour1 - hour2;
+    }
+    else
+    {
+      return minute1 - minute2;
+    }
+  }
 
   const getTodaysTasks = () => {
     const currentDate = new Date();
     const allTasks = [...tasks];
 
-    const newList = allTasks.filter(
+    const todaysTasks = allTasks.filter(
       (task) =>
         task.date.split("/")[2] == currentDate.getFullYear() &&
         task.date.split("/")[1] == currentDate.getDate() &&
         task.date.split("/")[0] == currentDate.getMonth() + 1
     );
 
-    return newList;
+    const sortedTasks = todaysTasks.sort(compareTime);
+    return sortedTasks;
   };
+
 
   const getTasks = () => {
     if (props.selectedCategory == "Today") {
@@ -74,11 +98,12 @@ function List(props) {
     else {
       const allTasks = [...tasks];
 
-      const newList = allTasks.filter(
+      const categoryTasks = allTasks.filter(
         (task) => task.category == props.selectedCategory
       );
 
-      return newList;
+      const sortedTasks = categoryTasks.sort(compareTime);
+      return sortedTasks;
     }
   };
 
@@ -87,6 +112,7 @@ function List(props) {
       <ScrollView style={styles.list} showsVerticalScrollIndicator={false}>
         {getTasks().map((task, index) => (
           <Item
+            task={task}
             key={index}
             onDone={handleDone}
             time={task.time}

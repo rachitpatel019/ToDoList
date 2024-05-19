@@ -20,20 +20,12 @@ function Create() {
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
-  const [days, setDays] = useState([]);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
   const onCategoryChange = (itemValue, itemIndex) => {
     setCategory(itemValue);
-  };
-
-  const onDaysChange = (day) => {
-    const updatedDays = days.includes(day)
-      ? days.filter((value) => value !== day)
-      : [...days, day];
-    setDays(updatedDays);
   };
 
   const onDateChange = (selectedDate) => {
@@ -57,15 +49,7 @@ function Create() {
   const handleAdd = () => {
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const taskTime =
-      hours <= 12
-        ? hours +
-          ":" +
-          (minutes.toString().length == 2 ? minutes : "0" + minutes)
-        : hours -
-          12 +
-          ":" +
-          (minutes.toString().length == 2 ? minutes : "0" + minutes);
+    const taskTime = hours + ":" + (minutes.toString().length == 2 ? minutes : "0" + minutes)
 
     const taskDate =
       date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
@@ -75,7 +59,6 @@ function Create() {
       category: category,
       date: taskDate,
       time: taskTime,
-      repeat: days,
     };
     setTasks([...tasks, newTask]);
   };
@@ -101,7 +84,6 @@ function Create() {
         showDatepicker={showDatepicker}
         showTimepicker={showTimepicker}
       />
-      <Repeat days={days} onChange={onDaysChange} />
 
       <Pressable
         style={[styles.button, { backgroundColor: "blue" }]}
