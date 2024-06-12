@@ -9,35 +9,6 @@ import {
 
 import palette from "../Config/Colors";
 
-const date = new Date();
-
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-let today =
-  days[date.getDay()] + ", " + months[date.getMonth()] + " " + date.getDate();
-
 function Header(props) {
   const colors = useColorScheme() === "light" ? palette.light : palette.dark;
 
@@ -52,11 +23,6 @@ function Header(props) {
         style={{ position: "absolute", top: "16%", right: "29%" }}
         onPress={props.onAddPress}>
         <Image source={require("../assets/add.png")} />
-      </Pressable>
-      <Pressable
-        style={{ position: "absolute", top: "16%", right: "17%" }}
-        onPress={props.onCalendarPress}>
-        <Image source={require("../assets/calendar.png")} />
       </Pressable>
       <Pressable
         style={{ position: "absolute", top: "16%", right: "5%" }}

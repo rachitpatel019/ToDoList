@@ -17,7 +17,6 @@ function Home({ navigation }) {
     <View style={[styles.container, { backgroundColor: colors.Background }]}>
       <Header
         onAddPress={() => navigation.navigate("Add Task")}
-        onCalendarPress={() => navigation.navigate("Calendar")}
         onSettingsPress={() => navigation.navigate("Settings")}
       />
       <CategoryList

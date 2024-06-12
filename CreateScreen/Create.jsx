@@ -48,7 +48,8 @@ function Create() {
   const handleAdd = () => {
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const taskTime = hours + ":" + (minutes.toString().length == 2 ? minutes : "0" + minutes)
+    const taskTime =
+      hours + ":" + (minutes.toString().length == 2 ? minutes : "0" + minutes);
 
     const taskDate =
       date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
@@ -59,7 +60,14 @@ function Create() {
       date: taskDate,
       time: taskTime,
     };
-    if (!(tasks.some(task => task.name === title && task.category === category && task.date === taskDate && task.time === taskTime))) {
+    if (
+      !tasks.some(
+        (task) =>
+          task.name === title &&
+          task.date === taskDate &&
+          task.time === taskTime
+      )
+    ) {
       setTasks([...tasks, newTask]);
     }
   };
