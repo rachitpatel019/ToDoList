@@ -52,7 +52,7 @@ npm run ios      # For iOS
 npm run web      # For Web
 
 ## Contributing
-While this project is not actively developed and maintained by the authors, feel free to submit issues or pull requests.
+This project is not actively developed and maintained by the authors.
 
 ## License
 This project is NOT licensed.
@@ -64,6 +64,4 @@ This project is production-ready and considered stable for use in real-world app
 Rachit Patel
 
 ## Acknowledgments
-The project uses several non-copyrighted assets
-
-
+The project uses several non-copyrighted assets, including the logo
